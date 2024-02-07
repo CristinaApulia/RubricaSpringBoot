@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,9 +26,9 @@ public class Rubrica {
 		aggiungiContatto("Maria", "Bianchi", "334555585");
 	}
 
-	@GetMapping("/aggiungicontatto/{nome}/{cognome}/{numero}")
-	public Contatto aggiungiContatto(@PathVariable String nome, @PathVariable String cognome,
-			@PathVariable String numero) {
+	@PostMapping("/aggiungicontatto")
+	public Contatto aggiungiContatto(@RequestParam("nome") String nome, @RequestParam("cognome") String cognome,
+			@RequestParam("numero") String numero) {
 		Contatto contatto = new Contatto(nome, cognome, numero);
 		listaContatti.add(contatto);
 		LOGGER.info("inserito contatto" + contatto);
@@ -53,6 +55,7 @@ public class Rubrica {
 				listaBreveContatti.add(contatto);
 			}
 		}
+		// System.out.println(stampata);
 		return listaBreveContatti;
 	}
 }
